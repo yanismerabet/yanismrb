@@ -1,0 +1,27 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: biblio-virtualservice
+  namespace: default
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - biblio-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /biblio
+      route:
+        - destination:
+            host: biblio-app-service.default.svc.cluster.local
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /rechercher
+      route:
+        - destination:
+            host: biblio-app-service.default.svc.cluster.local
+            port:
+              number: 80

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: biblio-app-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: biblio-app
+  template:
+    metadata:
+      labels:
+        app: biblio-app
+    spec:
+      containers:
+        - name: biblio-app
+          image: yanismerabet/biblio-ap:v1
+          ports:
+            - containerPort: 8080

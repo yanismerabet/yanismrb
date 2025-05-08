@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-new
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql-new
+  template:
+    metadata:
+      labels:
+        app: mysql-new
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8.0
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: newpassword
+            - name: MYSQL_DATABASE
+              value: ma_nouvelle_base
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: mysql-new-persistent-storage
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: mysql-new-persistent-storage
+          emptyDir: {}
